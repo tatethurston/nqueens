@@ -1,14 +1,15 @@
 var _nQueensWebWorking = function(n){
   var count = 0;
   var taskQueue = [];
-  var worker, position, numWorkers = 0;
+  var worker, position, endTime; numWorkers = 0;
 
   for (var i = 0; i < n; i++){
-
     //poisition pointer for starting queen location
     taskQueue.push( 1 << i );
-
   }
+
+  //start timer
+  console.time('timer');
 
   //instantiate web workers
   for (var i = 0; i < 4; i++){
@@ -30,7 +31,8 @@ var _nQueensWebWorking = function(n){
         numWorkers--;
         this.terminate();
         if (numWorkers === 0){
-          console.log('Solution to ' + n + ' queens is: ' + count);
+          console.log('The solution to ' + n + ' queens is: ' + count);
+          endTime = console.timeEnd('timer');
         }
       }
     };
